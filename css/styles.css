@@ -1,0 +1,361 @@
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
+:root {
+  --bg: linear-gradient(135deg, #f7f3ff 0%, #ffffff 50%);
+  --card: rgba(255, 255, 255, 0.75);
+  --glass: rgba(255, 255, 255, 0.5);
+  --accent-1: #ff6b6b;
+  --accent-2: #ffd166;
+  --accent-3: #6be5ff;
+  --text: #121212;
+  --muted: #444;
+  --nav-height: 72px;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(17, 17, 17, 0.08);
+  --transition: 300ms cubic-bezier(.2, .9, .3, 1);
+}
+
+/* ========== DARK THEME ========== */
+:root[data-theme='dark'] {
+  --bg: linear-gradient(180deg, #05060a 0%, #071020 60%);
+  --card: rgba(10, 12, 18, 0.6);
+  --glass: rgba(255, 255, 255, 0.03);
+  --accent-1: #00f5ff;
+  --accent-2: #7c5cff;
+  --accent-3: #00ff9f;
+  --text: #e9f0ff;
+  --muted: #9aa6bf;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================================================
+   BASE STYLES
+========================================================= */
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  transition: background var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   NAVBAR — Glass Blur, Sticky
+========================================================= */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: var(--shadow);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 50;
+  transition: background var(--transition);
+}
+:root[data-theme='dark'] header {
+  background: rgba(10, 12, 18, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: inherit;
+  font-weight: 700; font-size: 1.05rem;
+}
+
+.logo {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: grid; place-items: center;
+  font-weight: 700; color: white;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  box-shadow: var(--shadow);
+  transition: transform var(--transition);
+}
+.logo:hover { transform: translateY(-4px) rotate(-6deg); }
+
+nav {
+  display: flex; gap: 10px; align-items: center;
+}
+nav a {
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  transition: color var(--transition), transform var(--transition);
+}
+nav a:hover { color: var(--text); transform: translateY(-3px); }
+nav a.active { color: var(--accent-1); }
+
+/* Toggle + Controls */
+.controls { display: flex; gap: 12px; align-items: center; }
+
+.theme-toggle {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 6px;
+  align-items: center;
+  padding: 6px;
+  background: var(--glass);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+.theme-toggle .dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+  display: grid; place-items: center;
+  color: #042;
+  transform: translateX(0);
+  transition: transform var(--transition);
+}
+:root[data-theme='dark'] .theme-toggle .dot {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+  color: #001;
+}
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+main { padding-top: calc(var(--nav-height) + 28px); position: relative; z-index: 2; }
+
+.hero {
+  min-height: calc(100vh - var(--nav-height));
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 40px;
+  align-items: center;
+  padding: 64px;
+  position: relative;
+  z-index: 3;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin: 0 0 18px 0;
+  line-height: 1.02;
+}
+
+p.lead {
+  margin: 0 0 24px 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.cta {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-3));
+  color: #07102a;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(99, 99, 99, 0.08);
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+.card {
+  background: var(--card);
+  padding: 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  position: relative;
+  z-index: 3;
+}
+:root[data-theme='dark'] .card {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================================
+   BLOBS — Full Page Animated Background
+========================================================= */
+.blobs {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  filter: blur(60px);
+  opacity: 0.8;
+  transform: translate3d(0,0,0);
+  transition: background 0.3s ease;
+}
+
+/* =========================================================
+   GRID LINES (Dark Mode)
+========================================================= */
+/* Light theme / default grid lines */
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+   background-image: 
+    linear-gradient(transparent 96%, rgba(155, 89, 182, 0.08) 96%),   /* purple */
+    linear-gradient(90deg, transparent 96%, rgba(255,107,107, 0.08) 96%); /* red */
+  background-size: 100% 60px, 60px 100%;
+  mix-blend-mode: overlay;
+  z-index: 1;
+} 
+
+:root[data-theme='dark'] .grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(transparent 96%, rgba(190, 250, 164, 0.02) 96%),
+                    linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.02) 96%);
+  background-size: 100% 60px, 60px 100%;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+
+
+
+/* =========================================================
+   PROJECTS GRID
+========================================================= */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 3;
+}
+
+.project {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.35));
+  padding: 18px;
+  border-radius: 12px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+:root[data-theme='dark'] .project {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+}
+.project:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(10, 10, 10, 0.15);
+}
+
+/* Neon shimmer */
+.neon { position: relative; }
+:root[data-theme='dark'] .neon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 30px var(--accent-1);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer {
+  padding: 48px 32px;
+  text-align: center;
+  color: var(--muted);
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================================
+   ANIMATIONS + UTILITIES
+========================================================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.fade-in.show { opacity: 1; transform: none; }
+/* =========================================================
+   HERO PAINT SPLASH + IMAGE
+========================================================= */
+.hero-right {
+  position: relative;
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3; /* above blobs */
+}
+
+.paint-splash {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle at 30% 30%, var(--accent-2), var(--accent-3));
+  border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%; /* organic paint shape */
+  transform: rotate(-20deg);
+  z-index: 1; /* behind the image */
+  transition: background 0.3s ease;
+}
+
+:root[data-theme='dark'] .paint-splash {
+  background: radial-gradient(circle at 30% 30%, var(--accent-1), var(--accent-3));
+}
+
+.hero-right img {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+
+  /* Make the image match paint splash shape */
+  border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%; 
+
+  box-shadow: var(--shadow);
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+
+.hero-right img:hover {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 36px;
+  }
+}
+
+.hamburger { display: none; }
+
+@media (max-width: 700px) {
+  nav { display: none; }
+  .hamburger { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+}
