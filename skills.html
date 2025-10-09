@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Skills — Tahiya Zareen</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Skill bubble grid */
+    .skill-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:24px;
+      margin-top:32px;
+    }
+
+    .skill-bubble{
+      background:var(--card);
+      color:var(--text);
+      padding:28px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:1rem;
+      cursor:pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .skill-bubble:hover{
+      transform:scale(1.15);
+      box-shadow:0 20px 40px rgba(0,0,0,0.15);
+      background:linear-gradient(135deg,var(--accent-2),var(--accent-3));
+      color:#07102a;
+    }
+
+    :root[data-theme='dark'] .skill-bubble:hover{
+      color:#fff;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse{
+      0%,100%{ transform: scale(1) }
+      50%{ transform: scale(1.05) }
+    }
+
+    .pulse{
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="index.html">
+      <div class="logo">TZ</div>
+      <div>
+        <div style="font-size:0.9rem;opacity:.8">Tahiya Zareen</div>
+        <div style="font-size:0.74rem;opacity:.6;margin-top:2px">Designer • Developer</div>
+      </div>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html" class="active">Skills</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="controls">
+      <div class="theme-toggle" id="themeToggle" title="Toggle theme" role="button" aria-pressed="false">
+        <div style="font-size:0.8rem;padding:0 8px">💡</div>
+        <div class="dot" id="themeDot">🌈</div>
+      </div>
+      <div class="hamburger" id="hamb">☰</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="left">
+        <div class="fade-in" id="intro">
+          <h1>My Skills</h1>
+          <p class="lead">I work with a variety of technologies and design tools. Here’s a snapshot of what I use most:</p>
+        </div>
+
+        <div class="skill-grid fade-in">
+          <div class="skill-bubble pulse">HTML</div>
+          <div class="skill-bubble pulse">CSS</div>
+          <div class="skill-bubble pulse">JavaScript</div>
+          <div class="skill-bubble pulse">Figma</div>
+          <div class="skill-bubble pulse">Webflow</div>
+          <div class="skill-bubble pulse">Python</div>
+          <div class="skill-bubble pulse">Django</div>
+          <div class="skill-bubble pulse">Canva</div>
+        </div>
+      </div>
+
+      <aside class="card fade-in">
+        <h3>Quick Info</h3>
+        <p style="color:var(--muted)">Each skill bubble is interactive — hover to see playful animations. I like combining coding, design, and modern tools for full-stack creative work.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    Made with ❤️ — Tahiya.
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
