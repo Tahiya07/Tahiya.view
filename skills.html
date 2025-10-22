@@ -52,6 +52,45 @@
     .pulse{
       animation: pulse 2.5s ease-in-out infinite;
     }
+    body {
+  cursor: none; /* Hide the default cursor */
+  overflow: hidden;
+}
+
+.cursor-splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Each particle */
+.splash-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(4px);
+  opacity: 0.9;
+  transform: scale(0);
+  animation: splashFade 0.8s ease-out forwards;
+}
+
+@keyframes splashFade {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -111,6 +150,7 @@
   <footer>
     Made with ❤️ — Tahiya.
   </footer>
+<div class="cursor-splash"></div>
 
   <script src="js/main.js"></script>
 </body>

@@ -8,6 +8,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    body {
+  cursor: none; /* Hide the default cursor */
+  overflow: hidden;
+}
+
+.cursor-splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Each particle */
+.splash-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(4px);
+  opacity: 0.9;
+  transform: scale(0);
+  animation: splashFade 0.8s ease-out forwards;
+}
+
+@keyframes splashFade {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
     .contact-form{
       max-width:600px;
       margin-top:32px;
@@ -132,8 +171,8 @@
   <footer>
     Made with ❤️ — Tahiya.
   </footer>
-
-  <script src="js/main.js"></script>
+<div class="cursor-splash"></div>
+<script src="js/main.js"></script>
   <script>
     // Contact form submit (placeholder)
     const form = document.getElementById('contactForm');

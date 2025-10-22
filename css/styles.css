@@ -33,9 +33,8 @@
    BASE STYLES
 ========================================================= */
 * { box-sizing: border-box; }
-
 html, body {
-  height: 100%;
+  height: auto;           /* Fix scrolling */
   margin: 0;
   font-family: 'Nunito', system-ui, sans-serif;
   color: var(--text);
@@ -43,6 +42,9 @@ html, body {
   transition: background var(--transition), color var(--transition);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;      /* Prevent horizontal scroll */
+  overflow-y: auto;        /* Allow vertical scroll */
+  cursor: none;            /* Hide default cursor */
 }
 
 /* =========================================================
@@ -193,7 +195,7 @@ p.lead {
   top: 0; left: 0;
   width: 100%; height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;  /* behind everything */
   overflow: hidden;
 }
 
@@ -207,35 +209,22 @@ p.lead {
   transition: background 0.3s ease;
 }
 
-/* =========================================================
-   GRID LINES (Dark Mode)
-========================================================= */
-/* Light theme / default grid lines */
+/* Grid overlay */
 .grid-lines {
   position: absolute;
   inset: 0;
   pointer-events: none;
-   background-image: 
-    linear-gradient(transparent 96%, rgba(155, 89, 182, 0.08) 96%),   /* purple */
-    linear-gradient(90deg, transparent 96%, rgba(255,107,107, 0.08) 96%); /* red */
-  background-size: 100% 60px, 60px 100%;
-  mix-blend-mode: overlay;
-  z-index: 1;
-} 
-
-:root[data-theme='dark'] .grid-lines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(transparent 96%, rgba(190, 250, 164, 0.02) 96%),
-                    linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.02) 96%);
+  background-image:
+    linear-gradient(transparent 96%, rgba(155, 89, 182, 0.08) 96%),
+    linear-gradient(90deg, transparent 96%, rgba(255,107,107, 0.08) 96%);
   background-size: 100% 60px, 60px 100%;
   mix-blend-mode: overlay;
   z-index: 1;
 }
-
-
-
+:root[data-theme='dark'] .grid-lines {
+  background-image: linear-gradient(transparent 96%, rgba(190, 250, 164, 0.02)),
+                    linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.02));
+}
 
 /* =========================================================
    PROJECTS GRID
@@ -264,18 +253,6 @@ p.lead {
   box-shadow: 0 20px 40px rgba(10, 10, 10, 0.15);
 }
 
-/* Neon shimmer */
-.neon { position: relative; }
-:root[data-theme='dark'] .neon::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 30px var(--accent-1);
-  mix-blend-mode: screen;
-  opacity: 0.6;
-}
-
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -296,6 +273,7 @@ footer {
   transition: opacity 600ms ease, transform 600ms ease;
 }
 .fade-in.show { opacity: 1; transform: none; }
+
 /* =========================================================
    HERO PAINT SPLASH + IMAGE
 ========================================================= */
@@ -306,42 +284,46 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3; /* above blobs */
+  z-index: 3;
+  overflow: visible;
 }
 
 .paint-splash {
   position: absolute;
   width: 320px;
   height: 320px;
-  background: radial-gradient(circle at 30% 30%, var(--accent-2), var(--accent-3));
-  border-radius: 50% 50% 40% 60% / 60% 40% 50% 50%; /* organic paint shape */
+  background: radial-gradient(circle at 20% 30%, #00FFFF, #B497FF);
+  border-radius: 35% 65% 25% 70% / 60% 30% 55% 40%;
   transform: rotate(-20deg);
-  z-index: 1; /* behind the image */
-  transition: background 0.3s ease;
+  filter: blur(12px) brightness(1.1) hue-rotate(0deg);
+  opacity: 0.9;
+  z-index: 1;
+  animation: splashMorph 12s ease-in-out infinite, hueShift 30s linear infinite;
 }
 
-:root[data-theme='dark'] .paint-splash {
-  background: radial-gradient(circle at 30% 30%, var(--accent-1), var(--accent-3));
+@keyframes splashMorph {
+  0%   { border-radius: 30% 70% 25% 65% / 50% 30% 55% 40%; transform: rotate(-25deg) scale(1); }
+  25%  { border-radius: 65% 35% 70% 40% / 35% 55% 40% 85%; transform: rotate(-15deg) scale(1.05); }
+  50%  { border-radius: 80% 60% 45% 30% / 65% 35% 10% 55%; transform: rotate(-5deg) scale(1.03); }
+  75%  { border-radius: 50% 80% 30% 70% / 40% 60% 45% 35%; transform: rotate(-20deg) scale(1.02); }
+  100% { border-radius: 30% 70% 25% 65% / 50% 30% 55% 40%; transform: rotate(-25deg) scale(1); }
+}
+@keyframes hueShift {
+  0%   { filter: blur(12px) brightness(1.1) hue-rotate(0deg); }
+  100% { filter: blur(12px) brightness(1.1) hue-rotate(360deg); }
 }
 
 .hero-right img {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-
-  /* Make the image match paint splash shape */
-  border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%; 
-
-  box-shadow: var(--shadow);
-  z-index: 2;
-  transition: transform 0.3s ease;
+   width: 220px;
+   height: 220px;
+   border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+   object-fit: cover;
+   box-shadow: var(--shadow);
+   z-index: 2;
+   transition: transform 0.3s ease;
 }
 
-
-.hero-right img:hover {
-  transform: scale(1.05) rotate(-2deg);
-}
+.hero-right img:hover { transform: scale(1.05) rotate(-2deg); }
 
 /* =========================================================
    RESPONSIVE
@@ -357,5 +339,89 @@ footer {
 
 @media (max-width: 700px) {
   nav { display: none; }
-  .hamburger { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .hamburger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
 }
+
+/* ================= BURST PARTICLES ================= */
+.burst-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.burst-particle {
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  border-radius: 50%;
+  opacity: 0.95;
+  transform: translate(-50%, -50%) scale(0);
+  filter: blur(3px);
+  animation: burstAnim 1s forwards;
+}
+
+@keyframes burstAnim {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.9; }
+  100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
+}
+
+/* Particle colours */
+.burst-particle:nth-child(1) { background: #00ffff; }
+.burst-particle:nth-child(2) { background: #b399ff; }
+.burst-particle:nth-child(3) { background: #ffdab9; }
+.burst-particle:nth-child(4) { background: #98ff98; }
+.burst-particle:nth-child(5) { background: #cfff00; }
+.burst-particle:nth-child(6) { background: #fff44f; }
+.burst-particle:nth-child(7) { background: #ff9a00; }
+.burst-particle:nth-child(8) { background: #aa00ff; }
+
+/* =========================================================
+   CUSTOM CURSOR + SPLASH
+========================================================= */
+body {
+  cursor: none;         /* hide default cursor */
+  overflow-x: hidden;   /* prevent horizontal scroll */
+  overflow-y: auto;     /* allow vertical scroll */
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  transition: background var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cursor-splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Each particle */
+.splash-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(4px);
+  opacity: 0.9;
+  transform: scale(0);
+  animation: splashFade 0.8s ease-out forwards;
+}
+
+@keyframes splashFade {
+  0% { transform: scale(0.5); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
