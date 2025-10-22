@@ -210,14 +210,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== CURSOR SPLASH =====
 const cursorSplash = document.querySelector('.cursor-splash');
 const colors = [
-  '#00FFFF',  // cyan
-  '#B497FF',  // lavender
-  '#FFDAB9',  // peach
-  '#98FF98',  // mint
-  '#CFFF00',  // lime
-  '#FFF44F',  // yellow
-  '#FF9A00',  // orange
-  '#AA00FF'   // purple
+  '#B497FF', // Soft Violet
+  '#7B68EE', // Indigo / Electric Purple
+  '#00FFFF', // Cyan Blue
+  '#98FF98', // Mint Green
+  '#FFF44F', // Bright Yellow
+  '#FF9A00', // Orange
+  '#FF3366'  // Vivid Red-Pink
+
 ];
 
 function createSplash(x, y) {
