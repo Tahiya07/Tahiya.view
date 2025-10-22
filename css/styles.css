@@ -222,9 +222,20 @@ p.lead {
   z-index: 1;
 }
 :root[data-theme='dark'] .grid-lines {
-  background-image: linear-gradient(transparent 96%, rgba(190, 250, 164, 0.02)),
-                    linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.02));
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(transparent 96%, rgba(190, 250, 164, 0.04) 96%), /* horizontal */
+    linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.03) 96%); /* vertical */
+
+  background-size: 100% 60px, 60px 100%; /* restore spacing */
+  mix-blend-mode: overlay; /* subtle on dark background */
+  z-index: 1;
 }
+
+
 
 /* =========================================================
    PROJECTS GRID
