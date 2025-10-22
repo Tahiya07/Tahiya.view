@@ -208,41 +208,77 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===== CURSOR SPLASH =====
-  const cursorSplash = document.querySelector('.cursor-splash');
-  const colors = [
-    '#00FFFF', '#B497FF', '#FFDAB9', '#98FF98',
-    '#CFFF00', '#FFF44F', '#FF9A00', '#AA00FF'
-  ];
+const cursorSplash = document.querySelector('.cursor-splash');
+const colors = [
+  '#00FFFF',  // cyan
+  '#B497FF',  // lavender
+  '#FFDAB9',  // peach
+  '#98FF98',  // mint
+  '#CFFF00',  // lime
+  '#FFF44F',  // yellow
+  '#FF9A00',  // orange
+  '#AA00FF'   // purple
+];
 
-  function createSplash(x, y) {
-    const particle = document.createElement('div');
-    particle.classList.add('splash-particle');
+function createSplash(x, y) {
+  const particle = document.createElement('div');
+  particle.classList.add('splash-particle');
 
-    const size = Math.random() * 12 + 8;
-    const color = colors[Math.floor(Math.random() * colors.length)];
+  const size = Math.random() * 12 + 8;
+  const color = colors[Math.floor(Math.random() * colors.length)];
 
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.background = color;
-    particle.style.left = `${x - size / 2}px`;
-    particle.style.top = `${y - size / 2}px`;
+  particle.style.width = `${size}px`;
+  particle.style.height = `${size}px`;
+  particle.style.background = color;
+  particle.style.left = `${x - size / 2}px`;
+  particle.style.top = `${y - size / 2}px`;
 
-    cursorSplash.appendChild(particle);
+  cursorSplash.appendChild(particle);
 
-    setTimeout(() => particle.remove(), 800);
+  setTimeout(() => particle.remove(), 800);
+}
+
+// ===== Desktop mouse trail =====
+document.addEventListener('mousemove', (e) => {
+  createSplash(e.clientX, e.clientY);
+});
+
+// ===== Mobile finger trail =====
+let lastTouch = { x: null, y: null };
+
+document.addEventListener('touchstart', (e) => {
+  const touch = e.touches[0];
+  createSplash(touch.clientX, touch.clientY);
+  lastTouch.x = touch.clientX;
+  lastTouch.y = touch.clientY;
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+  const touch = e.touches[0];
+  const x = touch.clientX;
+  const y = touch.clientY;
+
+  // Create multiple splashes between last and current point for smooth trail
+  if (lastTouch.x !== null && lastTouch.y !== null) {
+    const dx = x - lastTouch.x;
+    const dy = y - lastTouch.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const steps = Math.max(1, Math.floor(dist / 5));
+
+    for (let i = 0; i < steps; i++) {
+      const ix = lastTouch.x + (dx * i) / steps;
+      const iy = lastTouch.y + (dy * i) / steps;
+      createSplash(ix, iy);
+    }
   }
 
-// For mouse
-  document.addEventListener('mousemove', (e) => {
-    createSplash(e.clientX, e.clientY);
-  });
+  lastTouch.x = x;
+  lastTouch.y = y;
+}, { passive: true });
 
-// For touch devices
-  document.addEventListener('touchmove', (e) => {
-    if (e.touches.length > 0) {
-      const touch = e.touches[0];
-      createSplash(touch.clientX, touch.clientY);
-    }
-  }, {passive: true});
+document.addEventListener('touchend', () => {
+  lastTouch.x = null;
+  lastTouch.y = null;
+});
 });
 
