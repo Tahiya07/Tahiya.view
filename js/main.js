@@ -211,12 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
 const cursorSplash = document.querySelector('.cursor-splash');
 const colors = [
   '#B497FF', // Soft Violet
-  '#7B68EE', // Indigo / Electric Purple
-  '#00FFFF', // Cyan Blue
-  '#98FF98', // Mint Green
   '#FFF44F', // Bright Yellow
+  '#00FFFF', // Cyan Blue
+  '#7B68EE', // Indigo / Electric Purple
   '#FF9A00', // Orange
-  '#FF3366'  // Vivid Red-Pink
+  '#FF3366', // Vivid Red-Pink
+  '#98FF98', // Mint Green
 
 ];
 
