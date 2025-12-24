@@ -22,14 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (toggle) toggle.setAttribute('aria-pressed', 'true');
       if (dot) {
         dot.textContent = '🌙';
-        dot.style.transform = 'translateX(20px)';
       }
     } else {
       root.removeAttribute('data-theme');
       if (toggle) toggle.setAttribute('aria-pressed', 'false');
       if (dot) {
         dot.textContent = '🌈';
-        dot.style.transform = 'translateX(0)';
       }
     }
   }
@@ -46,10 +44,68 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== MOBILE MENU =====
   if (HAMB) {
     HAMB.addEventListener('click', () => {
       const nav = document.querySelector('nav');
-      if (nav) nav.style.display = nav.style.display === 'flex' ? '' : 'flex';
+      if (nav) {
+        nav.classList.toggle('mobile-open');
+        HAMB.classList.toggle('active');
+        // Prevent body scroll when menu is open
+        if (nav.classList.contains('mobile-open')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // Close menu when clicking on a link and add clicked class
+    const navLinks = document.querySelectorAll('nav a');
+    
+    // Set active page as clicked on page load
+    navLinks.forEach(link => {
+      if (link.classList.contains('active')) {
+        link.classList.add('clicked');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        // Remove clicked class from all links
+        navLinks.forEach(l => l.classList.remove('clicked'));
+        // Add clicked class to the clicked link
+        link.classList.add('clicked');
+        
+        const nav = document.querySelector('nav');
+        if (nav && nav.classList.contains('mobile-open')) {
+          nav.classList.remove('mobile-open');
+          HAMB.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.querySelector('nav');
+      if (nav && nav.classList.contains('mobile-open') && 
+          !nav.contains(e.target) && 
+          !HAMB.contains(e.target)) {
+        nav.classList.remove('mobile-open');
+        HAMB.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when window is resized to desktop size
+    window.addEventListener('resize', () => {
+      const nav = document.querySelector('nav');
+      if (window.innerWidth > 700 && nav && nav.classList.contains('mobile-open')) {
+        nav.classList.remove('mobile-open');
+        HAMB.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
   }
 

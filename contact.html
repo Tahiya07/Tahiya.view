@@ -10,7 +10,8 @@
   <style>
     body {
   cursor: none; /* Hide the default cursor */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .cursor-splash {
@@ -82,38 +83,6 @@
       color:var(--text);
     }
 
-    .send-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:12px 20px;
-      background:linear-gradient(90deg,var(--accent-2),var(--accent-3));
-      color:#07102a;
-      font-weight:700;
-      border-radius:12px;
-      cursor:pointer;
-      border:none;
-      font-size:1rem;
-      transition: all var(--transition);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .send-btn:hover{
-      transform:translateY(-2px) scale(1.03);
-      box-shadow:0 12px 28px rgba(0,0,0,0.12);
-    }
-
-    .send-icon{
-      display:inline-block;
-      animation: floatSend 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatSend{
-      0%{ transform: translateY(0) }
-      100%{ transform: translateY(-6px) }
-    }
   </style>
 </head>
 <body>
