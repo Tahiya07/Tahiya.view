@@ -1,5 +1,3 @@
-console.log("JS loaded on this page!");
-
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===== THEME TOGGLE =====
