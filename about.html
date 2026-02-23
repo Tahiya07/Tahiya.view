@@ -7,7 +7,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+.card {
+  position: relative;
+  overflow: hidden;
+
+  background: var(--bg-glass);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+
+  padding: 28px;
+  border-radius: var(--radius);
+
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+
+  color: var(--text-primary);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    var(--glass-highlight),
+    transparent
+  );
+  pointer-events: none;
+}
+@supports not (backdrop-filter: blur(10px)) {
+  .card {
+    background: rgba(30, 30, 30, 0.85);
+  }
+}
+</style>
 </head>
+
 <body>
 
   <header>
@@ -23,7 +61,7 @@
       <a href="index.html">Home</a>
       <a href="about.html" class="active">About</a>
       <a href="skills.html">Skills</a>
-      <a href="projects.html">Projects</a>
+<!--      <a href="projects.html">Projects</a>-->
       <a href="contact.html">Contact</a>
     </nav>
 
@@ -34,6 +72,7 @@
       </div>
       <div class="hamburger" id="hamb">☰</div>
     </div>
+
   </header>
 
   <main>
@@ -51,35 +90,58 @@
           <h1>About Me</h1>
           <p class="lead">Hi! I’m Tahiya, a front-end developer and designer. I love combining playful interfaces with clean, efficient code.</p>
         </div>
+      <!-- EDUCATIONAL QUALIFICATIONS -->
+      <section class="fade-in" style="margin-bottom:48px">
+        <h3 style="margin-bottom:16px">Educational Qualifications</h3>
 
-        <!-- Animated Skill Bars -->
-        <section style="margin-top:32px">
-          <h3 class="fade-in" style="margin-bottom:12px">My Skills</h3>
-          <div class="fade-in skill-bar" data-level="90%">
-            <span style="background:var(--accent-1)"></span>
-            <div style="margin-top:4px;font-size:0.85rem;color:var(--muted)">HTML & CSS</div>
-          </div>
-          <div class="fade-in skill-bar" data-level="80%">
-            <span style="background:var(--accent-2)"></span>
-            <div style="margin-top:4px;font-size:0.85rem;color:var(--muted)">JavaScript</div>
-          </div>
-          <div class="fade-in skill-bar" data-level="75%">
-            <span style="background:var(--accent-3)"></span>
-            <div style="margin-top:4px;font-size:0.85rem;color:var(--muted)">React & Front-end Frameworks</div>
-          </div>
-        </section>
+        <div class="card" style="margin-bottom:16px">
+          <h4>BSc in Computer Science & Engineering</h4>
+          <p style="color:var(--muted);margin-top:6px">
+            University of Asia Pacific (UAP)<br>
+            Ongoing—<strong>CGPA: 3.63</strong>
+          </p>
+        </div>
+
+        <div class="card" style="margin-bottom:16px">
+          <h4>Higher Secondary Certificate (HSC)</h4>
+          <p style="color:var(--muted);margin-top:6px">
+            Mohammadpur Preparatory School and College<br>
+            Science Background <strong>GPA: 5.00</strong>
+          </p>
+        </div>
+
+        <div class="card">
+          <h4>Secondary School Certificate (SSC)</h4>
+          <p style="color:var(--muted);margin-top:6px">
+          Mohammadpur Preparatory School and College<br>
+            Science Background <strong>GPA: 4.94</strong>
+          </p>
+        </div>
+      </section>
       </div>
 
-      <!-- Side card for playful info -->
-      <aside class="card fade-in">
-        <h3>Quick Info</h3>
-        <p style="color:var(--muted)">I enjoy creating interactive web experiences and experimenting with animation systems. Open to freelance & collaborative projects.</p>
-        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-          <span style="padding:8px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;font-weight:700;font-size:0.85rem">Available</span>
-          <span style="padding:8px 10px;border-radius:999px;background:var(--glass);font-weight:700;font-size:0.85rem">Remote</span>
-        </div>
-      </aside>
-    </section>
+    <!-- SIDE INFO CARD -->
+    <aside class="card fade-in">
+      <h3>Quick Info</h3>
+      <p style="color:var(--muted)">
+        I enjoy creating interactive web experiences, clean UI systems,
+        and experimenting with animations and modern front-end tools.
+      </p>
+
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <span style="padding:8px 10px;border-radius:999px;
+          background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+          color:white;font-weight:700;font-size:0.85rem">
+          Available
+        </span>
+
+        <span style="padding:8px 10px;border-radius:999px;
+          background:var(--glass);font-weight:700;font-size:0.85rem">
+          Remote
+        </span>
+      </div>
+    </aside>
+  </section>
   </main>
 
   <footer>

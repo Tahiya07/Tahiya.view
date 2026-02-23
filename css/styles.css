@@ -1,32 +1,77 @@
+
 /* =========================================================
-   GLOBAL VARIABLES
+   GLOBAL COLOR VARIABLES — LIGHT
 ========================================================= */
 :root {
-  --bg: linear-gradient(135deg, #f7f3ff 0%, #ffffff 50%);
-  --card: rgba(255, 255, 255, 0.75);
-  --glass: rgba(255, 255, 255, 0.5);
+  /* Backgrounds */
+  --bg-main: linear-gradient(135deg, #f7f3ff 0%, #ffffff 50%);
+  --bg-surface: rgba(255, 255, 255, 0.75);
+  --bg-glass: rgba(255, 255, 255, 0.08);
+
+  /* Glass effects */
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.25);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+
+  /* Accents */
   --accent-1: #ff6b6b;
   --accent-2: #ffd166;
   --accent-3: #6be5ff;
-  --text: #121212;
-  --muted: #444;
+
+  /* Text */
+  --text-primary: #121212;
+  --text-muted: #444;
+
+  /* UI */
+  --radius: 18px;
   --nav-height: 72px;
-  --radius: 14px;
-  --shadow: 0 10px 30px rgba(17, 17, 17, 0.08);
+  --shadow-soft: 0 8px 32px rgba(17, 17, 17, 0.08);
   --transition: 300ms cubic-bezier(.2, .9, .3, 1);
 }
+:root {
+  /* Compatibility aliases */
+  --bg: var(--bg-main);
+  --card: var(--bg-surface);
+  --glass: var(--bg-glass);
+  --text: var(--text-primary);
+  --muted: var(--text-muted);
+  --shadow: var(--shadow-soft);
+}
 
-/* ========== DARK THEME ========== */
+/* =========================================================
+   GLOBAL COLOR VARIABLES — DARK
+========================================================= */
 :root[data-theme='dark'] {
-  --bg: linear-gradient(180deg, #05060a 0%, #071020 60%);
-  --card: rgba(10, 12, 18, 0.6);
-  --glass: rgba(255, 255, 255, 0.03);
+  /* Backgrounds */
+  --bg-main: linear-gradient(180deg, #05060a 0%, #071020 60%);
+  --bg-surface: rgba(10, 12, 18, 0.6);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+
+  /* Glass effects */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
+  --glass-shadow: rgba(0, 0, 0, 0.6);
+
+  /* Accents */
   --accent-1: #00f5ff;
   --accent-2: #7c5cff;
   --accent-3: #00ff9f;
-  --text: #e9f0ff;
-  --muted: #9aa6bf;
-  --shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+
+  /* Text */
+  --text-primary: #e9f0ff;
+  --text-muted: #9aa6bf;
+
+  /* UI */
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+:root[data-theme='dark'] {
+  /* Compatibility aliases */
+  --bg: var(--bg-main);
+  --card: var(--bg-surface);
+  --glass: var(--bg-glass);
+  --text: var(--text-primary);
+  --muted: var(--text-muted);
+  --shadow: var(--shadow-soft);
 }
 
 /* =========================================================
@@ -38,7 +83,7 @@ html, body {
   margin: 0;
   font-family: 'Nunito', system-ui, sans-serif;
   color: var(--text);
-  background: var(--bg);
+ background: var(--bg-main);
   transition: background var(--transition), color var(--transition);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -59,7 +104,7 @@ header {
   justify-content: space-between;
   padding: 0 28px;
   backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--bg-glass);
   box-shadow: var(--shadow);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 50;
