@@ -47,47 +47,203 @@
     opacity: 0;
   }
 }
+/* =========================
+   FULL WIDTH PROJECT PAGE
+========================= */
 
-    /* Project card grid */
-    .project-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-      gap:20px;
-      margin-top:32px;
-    }
+.projects-section {
+  width: 100%;
+  padding: 40px 4vw 80px;
+}
 
-    .project-card{
-      background:var(--card);
-      padding:20px;
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      transition: transform var(--transition), box-shadow var(--transition);
-      cursor:pointer;
-    }
+.projects-container {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
 
-    .project-card:hover{
-      transform:translateY(-8px);
-      box-shadow:0 20px 40px rgba(0,0,0,0.15);
-    }
+/* =========================
+   PROJECT GRID
+========================= */
 
-    :root[data-theme='dark'] .project-card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    }
+.project-grid {
+  display: grid;
 
-    .project-card h4{
-      margin:0 0 6px 0;
-      font-size:1.05rem;
-    }
+  /* 4 cards per row */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
-    .project-card p{
-      font-size:0.9rem;
-      color:var(--muted);
-      margin:0;
-    }
+  gap: 28px;
+  margin-top: 40px;
 
-    .neon-card{
-      position:relative;
-    }
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1500px) {
+  .project-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   FROSTED GLASS CARD
+========================= */
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+
+  text-decoration: none;
+  color: inherit;
+
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,0.18),
+    inset 0 1px 1px rgba(255,255,255,0.12);
+
+  transition:
+    transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+
+/* Hover */
+.project-card:hover {
+  transform: translateY(-10px) scale(1.02);
+
+  border-color: rgba(255,255,255,0.3);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.3),
+    0 0 25px rgba(0,255,255,0.12),
+    0 0 45px rgba(255,0,255,0.08);
+}
+
+/* =========================
+   PERFECT FIT WEBSITE THUMBNAIL
+========================= */
+
+.project-thumb {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+/* FIT ENTIRE WEBSITE INSIDE CARD */
+.project-thumb iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 560%;
+  height: 560%;
+
+  border: none;
+
+  transform: scale(0.178);
+  transform-origin: top left;
+
+  pointer-events: none;
+}
+/* =========================
+   TEXT CONTENT
+========================= */
+
+.project-content {
+  padding: 20px;
+}
+
+.project-content h4 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.project-content p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* =========================
+   NEON GLOW BORDER
+========================= */
+
+.neon-card::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+  padding: 1px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(0,255,255,0.6),
+    rgba(255,0,255,0.45),
+    rgba(0,140,255,0.55)
+  );
+
+  background-size: 300% 300%;
+  animation: neonBorder 6s linear infinite;
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* =========================
+   ANIMATED BORDER
+========================= */
+
+@keyframes neonBorder {
+
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
     :root[data-theme='dark'] .neon-card:after{
       content:'';
       position:absolute;
@@ -97,6 +253,15 @@
       mix-blend-mode:screen;
       opacity:0.6;
     }
+    .project-grid:hover .project-card {
+  filter: blur(1.5px);
+  opacity: 0.7;
+}
+
+.project-grid .project-card:hover {
+  filter: blur(0);
+  opacity: 1;
+}
   </style>
 </head>
 <body>
@@ -126,41 +291,128 @@
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="left">
-        <div class="fade-in" id="intro">
-          <h1>Projects</h1>
-          <p class="lead">Here’s a selection of projects showcasing interactive interfaces, animations, and full-stack implementations.</p>
-        </div>
+ <main>
 
-        <div class="project-grid fade-in">
-          <div class="project-card" tabindex="0" data-project="1">
-            <h4>Interactive Canvas</h4>
-            <p>Drag to reveal colors + particle play.</p>
-          </div>
-          <div class="project-card neon-card" tabindex="0" data-project="2">
-            <h4>Dashboard Concept</h4>
-            <p>Dark-mode first, animated graphs, keyboard shortcuts.</p>
-          </div>
-          <div class="project-card" tabindex="0" data-project="3">
-            <h4>Portfolio CMS</h4>
-            <p>Editable projects, dynamic filters, lovely animations.</p>
-          </div>
-        </div>
+  <section class="projects-section">
+
+    <div class="projects-container">
+
+      <!-- Intro -->
+      <div class="fade-in" id="intro">
+        <h1>Projects</h1>
+
+        <p class="lead">
+          Here’s a selection of projects showcasing interactive interfaces,
+          animations, dashboards, and full-stack implementations.
+        </p>
       </div>
 
-      <aside class="card fade-in">
-        <h3>Quick Info</h3>
-        <p style="color:var(--muted)">Click or press Enter on any project card to open details (currently placeholder alerts; replace with modals or project pages).</p>
-      </aside>
-    </section>
-  </main>
+      <!-- PROJECT GRID -->
+      <div class="project-grid fade-in">
+
+        <!-- Dashboard Light -->
+        <a class="project-card glass-card"
+           href="https://dashboard-light-nine.vercel.app/"
+           target="_blank">
+
+          <div class="project-thumb">
+            <iframe
+              src="https://dashboard-light-nine.vercel.app/"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="project-content">
+            <h4>Dashboard Light</h4>
+            <p>Modern light-themed analytics dashboard UI.</p>
+          </div>
+        </a>
+
+        <!-- Dashboard Dark -->
+        <a class="project-card glass-card neon-card"
+           href="https://dashboard-dark-iota.vercel.app/"
+           target="_blank">
+
+          <div class="project-thumb">
+            <iframe
+              src="https://dashboard-dark-iota.vercel.app/"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="project-content">
+            <h4>Dashboard Dark</h4>
+            <p>Dark futuristic student dashboard experience.</p>
+          </div>
+        </a>
+
+        <!-- TahiyaView -->
+        <a class="project-card glass-card"
+           href="https://tahiyaview.vercel.app/"
+           target="_blank">
+
+          <div class="project-thumb">
+            <iframe
+              src="https://tahiyaview.vercel.app/"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="project-content">
+            <h4>Tahiya Zareen</h4>
+            <p>Interactive creative portfolio using React+Nextjs showcase.</p>
+          </div>
+        </a>
+
+        <!-- UAP Credits -->
+        <a class="project-card glass-card"
+           href="https://cse.uap-bd.edu"
+           target="_blank">
+
+          <div class="project-thumb">
+            <iframe
+              src="https://cse.uap-bd.edu"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="project-content">
+            <h4>UAP CSE website</h4>
+            <p>UAP CSE departmental website redesigning</p>
+          </div>
+        </a>
+
+        <!-- WatchCraft -->
+        <a class="project-card glass-card neon-card"
+           href="https://watchcraft.onrender.com"
+           target="_blank">
+
+          <div class="project-thumb">
+            <iframe
+              src="https://watchcraft.onrender.com"
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="project-content">
+            <h4>WatchCraft</h4>
+            <p>Movie rate and review platform</p>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
 
   <footer>
     Made with ❤️ — Tahiya.
   </footer>
-<div class="cursor-splash"></div>
+
   <script src="js/main.js"></script>
 </body>
 </html>

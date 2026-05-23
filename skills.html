@@ -51,70 +51,129 @@
       height: 100%;
       object-fit: contain;
     }
-
 .skill-card {
   position: relative;
-  background: var(--card); /* solid card background */
+
+  /* Frosted glass base */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+
   border-radius: 16px;
   padding: 1.2rem 1rem;
   height: 170px;
+
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+
   cursor: pointer;
   overflow: hidden;
 
-  border: 2px solid transparent; /* base border */
-  background-clip: padding-box;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  /* Glass border */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  /* Soft glass shadow */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+
+  transition:
+    transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
 }
 
-/* Blurred animated gradient border using pseudo-element */
+/* Frosted glowing border */
 .skill-card::before {
   content: '';
   position: absolute;
   inset: 0;
+
   border-radius: 16px;
-  padding: 2px; /* border thickness */
+  padding: 1px;
+
   background: linear-gradient(
     135deg,
-    rgba(0,255,0,0.6),   /* lime green brighter */
-    rgba(75,0,255,0.5),  /* indigo brighter */
-    rgba(0,255,255,0.55) /* cyan brighter */
+    rgba(0, 255, 255, 0.55),
+    rgba(255, 0, 255, 0.45),
+    rgba(0, 140, 255, 0.55)
   );
-  background-size: 300% 300%; /* for animation */
-  filter: blur(12px);
-  opacity: 0.7; /* subtle glow */
-  transition: opacity 0.4s ease;
+
+  background-size: 300% 300%;
+  animation: neonBorder 6s linear infinite;
+
+  /* Border masking */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0.7;
+  filter: blur(8px);
+
   pointer-events: none;
-  z-index: 0;
-  animation: neonBorder 3s linear infinite;
 }
 
-/* Hover lift + subtle neon pop */
+
+/* Hover effects */
 .skill-card:hover {
   transform: translateY(-6px) scale(1.05);
+
+  border-color: rgba(255, 255, 255, 0.3);
+
   box-shadow:
-    0 0 24px rgba(0,255,0,0.3),
-    0 0 36px rgba(75,0,255,0.25),
-    0 0 48px rgba(0,255,255,0.2) inset;
-}
-:root[data-theme="dark"] .card {
-    box-shadow:
-      0 0 24px rgba(0,255,0,0.3),
-      0 0 36px rgba(75,0,255,0.25),
-      0 0 48px rgba(0,255,255,0.2) inset;
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(0, 255, 255, 0.18),
+    0 0 35px rgba(255, 0, 255, 0.12);
 }
 
-.card{
-  transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.45s ease;
+.skill-card:hover::after {
+  left: 140%;
 }
+
+/* Optional generic card animation */
+.card {
+  transition:
+    transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.45s ease;
+}
+
 .card:hover {
   transform: translateY(-6px) scale(1.05);
 }
 
+/* Animated gradient movement */
+@keyframes neonBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.skill-card::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.03;
+
+  background-image:
+    url("https://grainy-gradients.vercel.app/noise.svg");
+
+  pointer-events: none;
+}
 
 /* Icon pop */
 .skill-card:hover .skill-icon {
@@ -135,7 +194,15 @@
   100% { background-position: 0% 50%; }
 }
 
+    .skill-grid:hover .skill-card {
+  filter: blur(1.5px);
+  opacity: 0.7;
+}
 
+.skill-grid .skill-card:hover {
+  filter: blur(0);
+  opacity: 1;
+}
 .skill-name {
   font-weight: 700;
   font-size: 0.88rem;
@@ -155,6 +222,111 @@
       .skill-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
       .skill-card { height: 155px; }
     }
+
+.projects-section {
+  width: 100%;
+  padding: 40px 4vw 80px;
+}
+
+.projects-container {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+/* =========================
+   AI / RESEARCH INTERESTS
+========================= */
+
+.interests-section {
+  margin-top: 90px;
+}
+
+.section-heading {
+  margin-bottom: 40px;
+}
+
+.section-heading h2 {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  max-width: 760px;
+  line-height: 1.7;
+}
+
+/* Grid */
+.interest-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 24px;
+}
+
+/* Card */
+.interest-card {
+  position: relative;
+
+  padding: 28px 24px;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255,255,255,0.10);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.16),
+    inset 0 1px 1px rgba(255,255,255,0.08);
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Hover */
+.interest-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(255,255,255,0.22);
+
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.24),
+    0 0 24px rgba(0,255,255,0.08);
+}
+
+/* Icon */
+.interest-icon {
+  font-size: 2rem;
+  margin-bottom: 18px;
+}
+
+/* Title */
+.interest-card h3 {
+  margin: 0 0 12px;
+
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Description */
+.interest-card p {
+  margin: 0;
+
+  color: var(--muted);
+
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
   </style>
 </head>
 
@@ -173,7 +345,7 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="skills.html" class="active">Skills</a>
-<!--    <a href="projects.html">Projects</a>-->
+    <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
   </nav>
 
@@ -184,8 +356,10 @@
 </header>
 
 <main>
-<section class="hero">
-<div class="left">
+  <section class="projects-section">
+
+    <div class="projects-container">
+
         <div class="blobs" aria-hidden="true">
           <div class="blob b1"></div>
           <div class="blob b2"></div>
@@ -205,12 +379,52 @@
 
 <article class="skill-card"><div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"></div><div class="skill-name">JavaScript</div><div class="skill-desc">UI logic</div></article>
 
-<!--<article class="skill-card"><div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"></div><div class="skill-name">React</div><div class="skill-desc">Component UI</div></article>-->
+<article class="skill-card"><div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"></div><div class="skill-name">React</div><div class="skill-desc">Component UI</div></article>
 
-<!--<article class="skill-card"><div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"></div><div class="skill-name">Next.js</div><div class="skill-desc">SEO React</div></article>-->
+<article class="skill-card"><div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"></div><div class="skill-name">Next.js</div><div class="skill-desc">SEO React</div></article>
 
-<!--<article class="skill-card"><div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framer/framer-original.svg"></div><div class="skill-name">Framer Motion</div><div class="skill-desc">Animations</div></article>-->
+<!-- Framer Motion -->
+<article class="skill-card">
+  <div class="skill-icon">
+    <img
+      src="https://cdn.simpleicons.org/framer/ffffff"
+      alt="Framer Motion"
+    >
+  </div>
 
+  <div class="skill-name">Framer Motion</div>
+  <div class="skill-desc">Animations</div>
+</article>
+
+<!-- Vite -->
+<article class="skill-card">
+  <div class="skill-icon">
+    <img src="https://www.svgrepo.com/show/374167/vite.svg" alt="Vite">
+  </div>
+
+  <div class="skill-name">Vite</div>
+  <div class="skill-desc">Frontend Tooling</div>
+</article>
+
+<!-- TypeScript -->
+<article class="skill-card">
+  <div class="skill-icon">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+  </div>
+
+  <div class="skill-name">TypeScript</div>
+  <div class="skill-desc">Typed JavaScript</div>
+</article>
+
+<!-- Tailwind CSS -->
+<article class="skill-card">
+  <div class="skill-icon">
+    <img src="https://www.svgrepo.com/show/374118/tailwind.svg" alt="Tailwind CSS">
+  </div>
+
+  <div class="skill-name">Tailwind CSS</div>
+  <div class="skill-desc">Utility-first CSS</div>
+</article>
 </div>
 </div>
 
@@ -283,26 +497,96 @@
   <div class="skill-name">VS Code</div>
   <div class="skill-desc">Code editor</div>
 </article>
+<!-- Vercel -->
+<article class="skill-card">
+  <div class="skill-icon">
+    <img
+      src="https://cdn.simpleicons.org/vercel/ffffff"
+      alt="Vercel logo"
+    >
+  </div>
+
+  <div class="skill-name">Vercel</div>
+  <div class="skill-desc">Deployment Platform</div>
+</article>
+
+<!-- Render -->
+<article class="skill-card">
+  <div class="skill-icon">
+    <img
+      src="https://cdn.simpleicons.org/render/46E3B7"
+      alt="Render logo"
+    >
+  </div>
+
+  <div class="skill-name">Render</div>
+  <div class="skill-desc">Cloud Hosting</div>
+</article>
+</div>
+</div>
+  <!-- AI / RESEARCH -->
+<div class="skill-category">
+  <h3>AI & Research Interests</h3>
+
+  <div class="skill-grid">
+
+    <article class="skill-card">
+      <div class="skill-icon">🧠</div>
+      <div class="skill-name">Machine Learning</div>
+      <div class="skill-desc">Predictive intelligent systems</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">👁️</div>
+      <div class="skill-name">Computer Vision</div>
+      <div class="skill-desc">Image & visual understanding</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">✨</div>
+      <div class="skill-name">Generative AI</div>
+      <div class="skill-desc">AI content generation</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">💬</div>
+      <div class="skill-name">NLP</div>
+      <div class="skill-desc">Language understanding</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">LLMs</div>
+      <div class="skill-desc">Large language models</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">🧬</div>
+      <div class="skill-name">Deep Learning</div>
+      <div class="skill-desc">Neural network systems</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">🔗</div>
+      <div class="skill-name">Federated Learning</div>
+      <div class="skill-desc">Privacy-aware distributed AI</div>
+    </article>
+
+    <article class="skill-card">
+      <div class="skill-icon">📡</div>
+      <div class="skill-name">IoT</div>
+      <div class="skill-desc">Connected smart systems</div>
+    </article>
+
+  </div>
+</div>
 
 
 </div>
-</div>
-
-</div>
-
-<aside class="card">
-  <h3>Focus</h3>
-  <p style="color:var(--muted)">
-    Design-driven full-stack development with clean UI and scalable backend systems.
-  </p>
-</aside>
-
-</section>
+      </section>
 </main>
 
 <footer>Made with ❤️ — Tahiya.</footer>
-
-<div class="cursor-splash"></div>
 
 <script src="js/main.js"></script>
 </body>
