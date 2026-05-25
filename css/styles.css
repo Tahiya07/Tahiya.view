@@ -89,7 +89,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;      /* Prevent horizontal scroll */
   overflow-y: auto;        /* Allow vertical scroll */
-  cursor: none;            /* Hide default cursor */
+  cursor: auto;            /* Hide default cursor */
 }
 
 /* =========================================================
@@ -970,45 +970,6 @@ nav.mobile-open a.clicked {
 .burst-particle:nth-child(7) { background: #ff9a00; }
 .burst-particle:nth-child(8) { background: #aa00ff; }
 
-/* =========================================================
-   CUSTOM CURSOR + SPLASH
-========================================================= */
-body {
-  cursor: none;         /* hide default cursor */
-  overflow-x: hidden;   /* prevent horizontal scroll */
-  overflow-y: auto;     /* allow vertical scroll */
-  font-family: 'Nunito', system-ui, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  transition: background var(--transition), color var(--transition);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.cursor-splash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* Each particle */
-.splash-particle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  filter: blur(4px);
-  opacity: 0.9;
-  transform: scale(0);
-  animation: splashFade 0.8s ease-out forwards;
-}
-
-@keyframes splashFade {
-  0% { transform: scale(0.5); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.8; }
-  100% { transform: scale(2); opacity: 0; }
-}
 
 /* =========================================================
    BUTTON STYLES WITH ANIMATED GRADIENTS
